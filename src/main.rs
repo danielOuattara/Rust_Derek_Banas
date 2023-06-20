@@ -337,7 +337,6 @@ fn strings() {
         print!(" {}", char);
     }
 }
-
 //----------------------------------------------------
 // time @50'28"
 
@@ -349,9 +348,9 @@ fn casting() {
     let int_3_u32: u32 = (int_1_u8 as u32) + (int_2_u8 as u32);
 }
 
+//----------------------------------------------------
+// time @52'
 fn enum_type() {
-    // time @52'
-
     enum Days {
         Monday,
         Tuesday,
@@ -418,12 +417,13 @@ fn vectors() {
     // mutable vector
     let mut vector_2 = vec![1, 2, 3, 4];
 
-    // vector_2.push(5);
+    vector_2.push(5);
+
     println!("1st item: {}", vector_2[0]);
 
     let vector_2_second_item = &vector_2[1];
     match vector_2.get(1) {
-        Some(second) => println!("2nd item : {}", vector_2_second_item),
+        Some(second) => println!("vector_2 2nd item : {}", vector_2_second_item),
         None => println!("No 2nd value found"),
     }
 
@@ -460,7 +460,7 @@ fn vectors() {
 }
 
 //----------------------------------------------------
-// time @1H:00':40"
+// time @1H:00':40": FUNCTIONS
 
 fn _function() {
     println!("Say Hello");
@@ -482,12 +482,12 @@ fn multiple_returns(x: i32) -> (i32, i32) {
     return (x * 2, x * 30);
 }
 
-fn sum_list_item(list: &[i32]) -> i32 {
+fn sum_list_item_1(list: &[i32]) -> i32 {
     let mut sum = 0;
     for item in list {
         sum += item
     }
-    sum
+    return sum;
 }
 
 fn sum_list_item_2(list: &[i32]) -> i32 {
@@ -495,12 +495,12 @@ fn sum_list_item_2(list: &[i32]) -> i32 {
     for &item in list.iter() {
         sum += &item
     }
-    sum
+    return sum;
 }
 
 //----------------------------------------------------
 
-/*  Stopped time @1H07'45":   */
+/*  Stopped time @1H07'00":   */
 
 fn main() {
     // say_hello();
@@ -517,8 +517,8 @@ fn main() {
     // casting();
     // enum_type();
     // vectors();
-    // _function();
-    // get_sum(1, 4);
+    _function();
+    get_sum(1, 4);
     println!(" {:?} ", get_sum_2(1, 4));
     println!(" {:?} ", get_sum_3(1, 4));
     println!(" {:?} ", multiple_returns(4));
@@ -527,7 +527,7 @@ fn main() {
     println!("Items from multiple_return(5): {},{}", value_1, value_2);
 
     let list = vec![1, 2, 3, 4, 5, 6, 7, 8, 9];
-    println!("Sum of items in list = {}", sum_list_item(&list));
+    println!("Sum of items in list = {}", sum_list_item_1(&list));
     println!("Sum of items in list = {}", sum_list_item_2(&list));
-    //----
+    // ----
 }
