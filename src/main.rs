@@ -6,6 +6,7 @@ use std::cmp::Ordering;
 use std::fs::File;
 use std::io;
 use std::io::{BufRead, BufReader, ErrorKind, Write};
+use std::ops::Add; // Add Trait --> allows to perform "+" operator with generics
 
 //---------------------------------------------------
 
@@ -499,8 +500,17 @@ fn sum_list_item_2(list: &[i32]) -> i32 {
 }
 
 //----------------------------------------------------
+// time @1H:07':49": GENERICS
 
-/*  Stopped time @1H07'00":   */
+fn generics_get_sum<T: Add<Output = T>>(x: T, y: T) -> T {
+    return x + y;
+}
+
+//----------------------------------------------------
+
+//----------------------------------------------------
+
+/*  Stopped time @1:   */
 
 fn main() {
     // say_hello();
@@ -517,17 +527,47 @@ fn main() {
     // casting();
     // enum_type();
     // vectors();
-    _function();
-    get_sum(1, 4);
-    println!(" {:?} ", get_sum_2(1, 4));
-    println!(" {:?} ", get_sum_3(1, 4));
-    println!(" {:?} ", multiple_returns(4));
-    let (value_1, value_2) = multiple_returns(5);
+    // _function();
+    // get_sum(1, 4);
+    // println!(" {:?} ", get_sum_2(1, 4));
+    // println!(" {:?} ", get_sum_3(1, 4));
+    // println!(" {:?} ", multiple_returns(4));
+    // let (value_1, value_2) = multiple_returns(5);
 
-    println!("Items from multiple_return(5): {},{}", value_1, value_2);
+    // println!("Items from multiple_return(5): {},{}", value_1, value_2);
 
-    let list = vec![1, 2, 3, 4, 5, 6, 7, 8, 9];
-    println!("Sum of items in list = {}", sum_list_item_1(&list));
-    println!("Sum of items in list = {}", sum_list_item_2(&list));
-    // ----
+    // let list = vec![1, 2, 3, 4, 5, 6, 7, 8, 9];
+    // println!("Sum of items in list = {}", sum_list_item_1(&list));
+    // println!("Sum of items in list = {}", sum_list_item_2(&list));
+    // ---- end of functions
+
+    //----- start generics
+    println!("5 + 4 = {}", generics_get_sum(5, 4));
+    println!("5.34 + 4.43 = {}", generics_get_sum(5.34, 4.43));
+    //----- end generics
+
+    //--------- start ownership
+    // time @1H:11:40 OWNERSHIP
+
+    /*
+    Stack : Stores values in a last in / first out format
+            Data on the stack must have a defined fixed size
+
+    Heap : When putting data on the heap you request a certain
+           amount of space. The OS finds space available and
+           returns an address for that space called a pointer
+
+    Rules
+    1. each value has a variable that is called its owner
+    2. there is only one owner at a time for a value
+    3. when the owner goes out of scope the value disappears
+
+    */
+
+    let str_1 = String::from("World");
+    let str_2 = String::from("World");
+
+    // stop @01H15:17
+
+    //--------- end ownership
 }
