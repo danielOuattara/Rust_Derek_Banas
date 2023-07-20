@@ -9,269 +9,16 @@ use std::io::{BufRead, BufReader, ErrorKind, Write};
 use std::ops::Add; // Add Trait --> allows to perform "+" operator with generics
 
 //---------------------------------------------------
+mod _01_user_input;
+mod _02_constant_variables;
+mod _03_integer_types;
+mod _04_data_type;
+mod _05_random_numbers;
+mod _06_if_expressions;
+mod _07_ternary;
+mod _08_match;
+mod _09_arrays_and_operations;
 
-fn say_hello() {
-    println!("Hello world of Rust !");
-
-    println!("Enter your name :");
-    let mut name = String::new();
-
-    io::stdin()
-        .read_line(&mut name)
-        .expect("Did Not Receive Input");
-
-    let greetings: &str = "Nice to meet you";
-
-    println!("Hello {} ! {} ", name.trim_end(), greetings);
-}
-
-//----------------------------------------------------
-
-fn constant_variables() {
-    const ONE_MILLION: u32 = 1_000_000;
-    const PI: f32 = 3.141592;
-    // shadowing in Rust: 2 variables with the same name but different type (see below)
-    let age = "48";
-    println!("age is {}", age);
-
-    let mut age = age
-        .trim()
-        .parse::<u32>()
-        .expect("Age was not assigned a number");
-    println!("Age = {}", age);
-    age = age + 1;
-    println!("new Age = {}", age);
-
-    println!("I'm {} y.o and I have {}€", age, ONE_MILLION);
-}
-
-//----------------------------------------------------
-
-fn integer_types() {
-    // Unsigned integer: u8, u 16, u32, u64, u128, usize
-    // Signed integer: i8, i16, i32, i64, i128, isize
-
-    println!("Max u8 : {}, Min u8 : {}", u8::MAX, u8::MIN);
-    println!("Max u16 : {}, Min u16 : {}", u16::MAX, u16::MIN);
-    println!("Max u32 : {}, Min u32 : {}", u32::MAX, u32::MIN);
-    println!("Max u64 : {}, Min u64 : {}", u64::MAX, u64::MIN);
-    println!("Max u128 : {}, Min u128 : {}", u128::MAX, u128::MIN);
-    println!("Max usize : {}, Min usize : {}", usize::MAX, usize::MIN);
-
-    println!("-------");
-
-    println!("Max i8 : {}, Min i8 : {}", i8::MAX, i8::MIN);
-    println!("Max i16 : {}, Min i16 : {}", i16::MAX, i16::MIN);
-    println!("Max i32 : {}, Min i32 : {}", i32::MAX, i32::MIN);
-    println!("Max i64 : {}, Min i64 : {}", i64::MAX, i64::MIN);
-    println!("Max i128 : {}, Min i128 : {}", i128::MAX, i128::MIN);
-    println!("Max isize : {}, Min isize : {}", isize::MAX, isize::MIN);
-
-    println!("-------");
-
-    println!("Max f32 : {}, Min f32 : {}", f32::MAX, f32::MIN);
-    println!("Max f64 : {}, Min f64 : {}", f64::MAX, f64::MIN);
-}
-
-//----------------------------------------------------
-
-fn data_types() {
-    // time @18'30"
-    let is_true = true;
-    let is_snowing = false;
-
-    let my_grade = 'A';
-    println!("my grade is : {}", my_grade);
-
-    let num_1: f32 = 1.1111111111111111111;
-    println!("f32 : {}", num_1 + 1.1111111111111111111);
-
-    let num_2: f64 = 1.1111111111111111111;
-    println!("f64 : {}", num_2 + 1.1111111111111111111);
-
-    println!("-------");
-
-    let mut num_3: f32 = 5.0;
-    let mut num_4: f32 = 4.0;
-
-    println!("5 + 4  = {}", num_3 + num_4);
-    println!("5 - 4  = {}", num_3 - num_4);
-    println!("5 * 4  = {}", num_3 * num_4);
-    println!("5 / 4  = {}", (num_3 / num_4));
-    println!("5 ** 4  = {}", num_3.powf(num_4));
-    println!("5 % 4  = {}", num_3 % num_4);
-
-    println!("-------");
-
-    let mut num_3: u32 = 5;
-    let mut num_4: u32 = 4;
-
-    println!("5 + 4  = {}", num_3 + num_4);
-    println!("5 - 4  = {}", num_3 - num_4);
-    println!("5 * 4  = {}", num_3 * num_4);
-    println!("5 / 4  = {}", (num_3 / num_4));
-    println!("5 ** 4  = {}", num_3.pow(num_4));
-    println!("5 % 4  = {}", num_3 % num_4);
-}
-
-//----------------------------------------------------
-
-fn random_numbers() {
-    // time @23'
-    let random_num = rand::thread_rng().gen_range(1..101);
-    println!("Random : {}", random_num);
-
-    let random_num_2 = rand::thread_rng().gen::<f64>();
-    println!("Random : {}", random_num_2);
-}
-
-//----------------------------------------------------
-
-fn if_expression() {
-    let age: i8 = 8;
-    if age >= 1 && age <= 18 {
-        println!("Important birthday, section 1");
-    } else if age == 21 || age == 50 {
-        println!("Important birthday section 2");
-    } else if age >= 65 {
-        println!("Important birthday, section 3");
-    } else {
-        println!("Not Important birthday");
-    }
-}
-
-//----------------------------------------------------
-
-fn ternary_operator() {
-    // time @26'
-    let mut my_age = 47;
-
-    let can_vote = if my_age >= 18 { true } else { false };
-    println!("Can you vote ? {} ", can_vote);
-
-    let can_vote = my_age >= 18;
-    println!("Can you vote ? {} ", can_vote);
-}
-
-//----------------------------------------------------
-
-fn match_operator() {
-    // time @27'
-    let mut my_age: i8 = 48;
-    match my_age {
-        1..=18 => println!("Important Birthday, section 1"),
-        21 | 50 => println!("Important Birthday, section 2"),
-        65..=i8::MAX => println!("Important Birthday, section 3"),
-        _ => println!("Not Important Birthday"),
-    };
-
-    let my_age = 18;
-    let voting_age = 21;
-    match my_age.cmp(&voting_age) {
-        Ordering::Equal => println!("you can vote"),
-        Ordering::Greater => println!("you can vote"),
-        Ordering::Less => println!("you can NOT vote"),
-    };
-}
-//----------------------------------------------------
-
-fn array_operator() {
-    // time @32'
-    let arr_1 = [1, 2, 3, 4];
-
-    println!("first item in arr_1 is : {}", arr_1[0]);
-    println!("length of arr_1 is : {}", arr_1.len());
-    println!("--------------------");
-
-    // loop in array
-    let arr_2 = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-    let mut loop_index = 0;
-    loop {
-        println!("index = {} , value = {}", loop_index, arr_2[loop_index]);
-        if loop_index + 1 == arr_2.len() {
-            println!("-------------------- Done !");
-            break;
-        }
-        loop_index += 1;
-    }
-
-    //-------
-
-    let arr_3 = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-    let mut loop_index = 0;
-    loop {
-        if loop_index + 1 == arr_3.len() {
-            println!("------------------- Done !");
-            break;
-        }
-        if arr_2[loop_index] % 2 == 0 {
-            loop_index += 1;
-            continue;
-        }
-
-        println!("index = {} , value = {}", loop_index, arr_2[loop_index]);
-        loop_index += 1;
-    }
-
-    //-----------
-
-    let arr_4 = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-    let mut loop_index = 0;
-
-    for item in arr_4 {
-        println!("index = {} , value = {}", loop_index, arr_4[loop_index]);
-        if loop_index + 1 == arr_4.len() {
-            println!("-------------------- Done !");
-            break;
-        }
-        loop_index += 1;
-    }
-
-    //-------
-
-    let arr_5 = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-    let mut loop_index = 0;
-
-    for item in arr_5 {
-        if loop_index + 1 == arr_5.len() {
-            println!("------------------- Done !");
-            break;
-        }
-        if arr_5[loop_index] % 2 == 0 {
-            loop_index += 1;
-            continue;
-        }
-        println!("index = {} , value = {}", loop_index, arr_5[loop_index]);
-        loop_index += 1;
-    }
-    //-----------
-
-    let arr_6 = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-    let mut loop_index = 0;
-
-    while loop_index + 1 < arr_6.len() {
-        println!("index = {} , value = {}", loop_index, arr_6[loop_index]);
-        loop_index += 1;
-    }
-    println!("-------------------- Done !");
-
-    //-------
-
-    let arr_7 = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-    let mut loop_index = 0;
-
-    while loop_index + 1 < arr_7.len() {
-        if arr_7[loop_index] % 2 == 0 {
-            loop_index += 1;
-            continue;
-        }
-        println!("index = {} , value = {}", loop_index, arr_7[loop_index]);
-        loop_index += 1;
-    }
-    println!("------------------- Done !");
-}
-
-//----------------------------------------------------
 // @tuples 39'20"
 
 fn tuples() {
@@ -513,15 +260,16 @@ fn generics_get_sum<T: Add<Output = T>>(x: T, y: T) -> T {
 /*  Stopped time @1:   */
 
 fn main() {
-    // say_hello();
-    // constant_variables();
-    // integer_types();
-    // data_types();
-    // random_numbers();
-    // if_expression();
-    // ternary_operator();
-    // match_operator();
-    // array_operator();
+    _01_user_input::say_hello();
+    // _02_constant_variables::constant_variables()
+    // _03_integer_types::integer_types();
+    // _04_data_type::data_types();
+    // _05_random_numbers::random_numbers();
+    // _06_if_expressions::if_expression();
+    // _07_ternary::ternary_operator();
+    // _08_match::match_operator();
+    _09_arrays_and_operations::array_operator();
+
     // tuples();
     // strings();
     // casting();
@@ -542,8 +290,8 @@ fn main() {
     // ---- end of functions
 
     //----- start generics
-    println!("5 + 4 = {}", generics_get_sum(5, 4));
-    println!("5.34 + 4.43 = {}", generics_get_sum(5.34, 4.43));
+    // println!("5 + 4 = {}", generics_get_sum(5, 4));
+    // println!("5.34 + 4.43 = {}", generics_get_sum(5.34, 4.43));
     //----- end generics
 
     //--------- start ownership
@@ -564,8 +312,8 @@ fn main() {
 
     */
 
-    let str_1 = String::from("World");
-    let str_2 = String::from("World");
+    // let str_1 = String::from("World");
+    // let str_2 = String::from("World");
 
     // stop @01H15:17
 
