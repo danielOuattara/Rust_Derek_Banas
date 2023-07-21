@@ -18,145 +18,10 @@ mod _06_if_expressions;
 mod _07_ternary;
 mod _08_match;
 mod _09_arrays_and_operations;
-
-// @tuples 39'20"
-
-fn tuples() {
-    let my_tuples: (u8, String, f64) = (39, "Daniel".to_owned(), 20.34434);
-    println!("Name: {}", my_tuples.1);
-
-    let (v0, v1, v2) = my_tuples;
-    println!("Age: {:?}", v0);
-}
-//----------------------------------------------------
-// time @41'30"
-
-fn strings() {
-    let mut string_1 = String::new();
-    string_1.push('D');
-    string_1.push_str("aniel Ouat Tara");
-
-    println!("string_1 : {:?}", string_1);
-
-    for word in string_1.split_whitespace() {
-        println!("{}", word);
-    }
-
-    let string_2 = string_1.replace("Ouat Tara", "Ouattara");
-    println!("string_2 : {:?}", string_2);
-
-    let string_3 = String::from("a a a  z e r t y u i o p");
-    println!("string_3 :{}", string_3);
-
-    let mut vector_1: Vec<char> = string_3.chars().collect();
-    vector_1.sort();
-    vector_1.dedup();
-
-    println!("vector _1 : {:?}", vector_1);
-
-    let string_4: &str = "Random String";
-
-    let mut string_5: String = string_4.to_string();
-    println!("string_5 : {}", string_5);
-
-    let byte_array_1 = string_5.as_bytes();
-
-    let string_6 = &string_5[0..6];
-    println!(
-        "string_6 : {}, its length is {:?} ",
-        string_6,
-        string_6.len()
-    );
-
-    string_5.clear();
-    println!(
-        "empty string_5 is {}, its length is {:?} ",
-        string_5,
-        string_5.len()
-    );
-
-    let string_6 = String::from("Just some");
-    let string_7 = String::from(" another string");
-
-    let string_8 = string_6 + &string_7;
-    println!("string_8 : {}", string_8);
-
-    for char in string_8.bytes() {
-        print!(" {}", char);
-    }
-}
-//----------------------------------------------------
-// time @50'28"
-
-fn casting() {
-    let int_1_u8: u8 = 5;
-    let int_2_u8: u8 = 4;
-
-    // casting using 'as'
-    let int_3_u32: u32 = (int_1_u8 as u32) + (int_2_u8 as u32);
-}
-
-//----------------------------------------------------
-// time @52'
-fn enum_type() {
-    enum Days {
-        Monday,
-        Tuesday,
-        Wednesday,
-        Thursday,
-        Friday,
-        Saturday,
-        Sunday,
-    }
-
-    impl Days {
-        fn is_weekend(&self) -> bool {
-            match self {
-                Days::Saturday | Days::Sunday => true,
-                _ => false,
-            }
-        }
-    }
-
-    // ------
-
-    let today: Days = Days::Thursday;
-    println!("is today a weekend day ?: {}", today.is_weekend());
-
-    let tomorrow: Days = Days::Friday;
-    println!("is tomorrow a weekend day ?: {}", tomorrow.is_weekend());
-
-    let day_after_tomorrow: Days = Days::Saturday;
-    println!(
-        "is the day after tomorrow a weekend day ?: {}",
-        day_after_tomorrow.is_weekend()
-    );
-
-    //------
-
-    let today = Days::Friday;
-
-    match today {
-        Days::Monday => println!("Monday"),
-        Days::Tuesday => println!("Tuesday"),
-        Days::Wednesday => println!("Wednesday"),
-        Days::Thursday => println!("Thursday"),
-        Days::Friday => println!("Friday"),
-        Days::Saturday => println!("Saturday"),
-        Days::Sunday => println!("Sunday"),
-        _ => println!("Where are yoy from ?"),
-    }
-
-    //------
-
-    println!("Is today hte weekend ?: {:?}", today.is_weekend());
-
-    let now = Utc::now();
-    println!("{}", now);
-}
-
-//----------------------------------------------------
-// time @55'50"
+mod _10_tuples;
+mod _11_strings;
+mod _12_casting;
+mod _13_enums;
 
 fn vectors() {
     //empty vector
@@ -260,7 +125,7 @@ fn generics_get_sum<T: Add<Output = T>>(x: T, y: T) -> T {
 /*  Stopped time @1:   */
 
 fn main() {
-    _01_user_input::say_hello();
+    // _01_user_input::say_hello();
     // _02_constant_variables::constant_variables()
     // _03_integer_types::integer_types();
     // _04_data_type::data_types();
@@ -268,12 +133,12 @@ fn main() {
     // _06_if_expressions::if_expression();
     // _07_ternary::ternary_operator();
     // _08_match::match_operator();
-    _09_arrays_and_operations::array_operator();
+    // _09_arrays_and_operations::array_operator();
+    // _10_tuples::tuples();
+    // _11_strings::strings();
+    _12_casting::casting();
+    _13_enums::enum_type();
 
-    // tuples();
-    // strings();
-    // casting();
-    // enum_type();
     // vectors();
     // _function();
     // get_sum(1, 4);
