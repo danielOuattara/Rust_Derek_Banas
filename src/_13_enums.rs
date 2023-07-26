@@ -1,5 +1,7 @@
 // time @52'
 
+use std::arch::x86_64::_MM_FROUND_NEARBYINT;
+
 use chrono::{DateTime, Duration, Utc};
 
 pub fn enum_type() {
@@ -48,13 +50,16 @@ pub fn enum_type() {
         DaysOfWeek::Friday => println!("Friday"),
         DaysOfWeek::Saturday => println!("Saturday"),
         DaysOfWeek::Sunday => println!("Sunday"),
-        _ => println!("Where are yoy from ?"),
+        _ => println!("Where are you from ?"),
     }
 
-    //------
+    //-----------
 
-    println!("Is today hte weekend ?: {:?}", today.is_weekend());
+    println!("Is today the weekend ?: {:?}", today.is_weekend());
+
+    //------------
 
     let now = Utc::now();
     println!("{}", now);
+    println!("{:?}", now.format("%d/%m/%Y %H:%M").to_string());
 }
